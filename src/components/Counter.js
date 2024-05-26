@@ -1,10 +1,11 @@
-import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-export default function Counter() {
-  const [showCounter, setShowCounter] = useState(true);
+import { counterAction } from '../store';
 
-  const countSelector = useSelector((state) => state.count);
+export default function Counter() {
+  const count = useSelector((state) => state.count);
+  const showCounter = useSelector((state) => state.showCounter);
+
   const dispatch = useDispatch();
 
   return (
@@ -21,26 +22,32 @@ export default function Counter() {
 
       {showCounter && (
         <>
-          <p style={{ fontSize: '2rem' }}>{countSelector}</p>
+          <p style={{ fontSize: '2rem' }}>{count}</p>
           <div>
             <button
-              style={{ fontSize: '1.2rem' }}
-              onClick={() => dispatch({ type: 'INCREMENTBY5' })}
+              style={{ fontSize: '1.2rem', margin: '6px' }}
+              onClick={() => dispatch(counterAction.increment())}
             >
-              IncrementBy5
+              IncreaseBy5
             </button>
             <button
-              style={{ fontSize: '1.2rem' }}
-              onClick={() => dispatch({ type: 'DECREMENTBY5' })}
+              style={{ fontSize: '1.2rem', margin: '6px' }}
+              onClick={() => dispatch(counterAction.decrement())}
             >
-              DecrementBy5
+              DecreaseBy5
+            </button>
+            <button
+              style={{ fontSize: '1.2rem', margin: '6px' }}
+              onClick={() => dispatch(counterAction.increase(20))}
+            >
+              IncreaseBy20
             </button>
           </div>
         </>
       )}
       <button
         style={{ fontSize: '1.2rem' }}
-        onClick={() => setShowCounter(!showCounter)}
+        onClick={() => dispatch(counterAction.toggleCounter())}
       >
         Toggle Counter
       </button>

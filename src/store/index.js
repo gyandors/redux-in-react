@@ -1,11 +1,30 @@
-import { legacy_createStore as createStore } from 'redux';
+import { createSlice, configureStore } from '@reduxjs/toolkit';
 
-function counterReducer(state = { count: 0 }, action) {
-  if (action.type === 'INCREMENTBY5') return { count: state.count + 5 };
-  if (action.type === 'DECREMENTBY5') return { count: state.count - 5 };
-  return state;
-}
+const initialState = { count: 0, showCounter: true };
 
-const store = createStore(counterReducer);
+const counterSlice = createSlice({
+  name: 'counter',
+  initialState,
+  reducers: {
+    increment(state) {
+      state.count += 5;
+    },
+    decrement(state) {
+      state.count -= 5;
+    },
+    increase(state, action) {
+      state.count += action.payload;
+    },
+    toggleCounter(state) {
+      state.showCounter = !state.showCounter;
+    },
+  },
+});
+
+const store = configureStore({
+  reducer: counterSlice.reducer,
+});
+
+export const counterAction = counterSlice.actions;
 
 export default store;
