@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 
-import { authAction } from '../store';
+import { isLogin } from '../store/authSlice';
 
 export default function Header() {
   const selectAuth = useSelector((state) => state.auth.isAuthenticated);
@@ -24,7 +24,7 @@ export default function Header() {
             <button
               className="border rounded bg-blue-600 px-2 py-1 text-semibold m-1 text-white hover:bg-blue-500"
               onClick={() => {
-                dispatch(authAction.isLogin());
+                dispatch(isLogin());
               }}
             >
               Logout

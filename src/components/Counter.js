@@ -1,6 +1,11 @@
 import { useSelector, useDispatch } from 'react-redux';
 
-import { counterAction } from '../store';
+import {
+  increment,
+  decrement,
+  increase,
+  toggleCounter,
+} from '../store/counterSlice';
 
 export default function Counter() {
   const count = useSelector((state) => state.counter.count);
@@ -20,19 +25,19 @@ export default function Counter() {
           <div>
             <button
               className="border rounded bg-blue-600 px-2 py-1 text-semibold m-1 text-white hover:bg-blue-500"
-              onClick={() => dispatch(counterAction.increment())}
+              onClick={() => dispatch(increment())}
             >
               IncreaseBy5
             </button>
             <button
               className="border rounded bg-blue-600 px-2 py-1 text-semibold m-1 text-white hover:bg-blue-500"
-              onClick={() => dispatch(counterAction.decrement())}
+              onClick={() => dispatch(decrement())}
             >
               DecreaseBy5
             </button>
             <button
               className="border rounded bg-blue-600 px-2 py-1 text-semibold m-1 text-white hover:bg-blue-500"
-              onClick={() => dispatch(counterAction.increase(20))}
+              onClick={() => dispatch(increase(20))}
             >
               IncreaseBy20
             </button>
@@ -41,7 +46,7 @@ export default function Counter() {
       )}
       <button
         className="border rounded bg-blue-600 px-2 py-1 text-semibold m-1 text-white hover:bg-blue-500"
-        onClick={() => dispatch(counterAction.toggleCounter())}
+        onClick={() => dispatch(toggleCounter())}
       >
         Toggle Counter
       </button>

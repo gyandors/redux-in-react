@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { authAction } from '../store';
+import { isLogin } from '../store/authSlice';
 
 export default function LoginForm() {
   const dispatch = useDispatch();
@@ -7,7 +7,7 @@ export default function LoginForm() {
   function handleFormSubmit(event) {
     event.preventDefault();
 
-    dispatch(authAction.isLogin());
+    dispatch(isLogin());
   }
 
   return (
