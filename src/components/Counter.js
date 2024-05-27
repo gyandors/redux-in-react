@@ -3,41 +3,35 @@ import { useSelector, useDispatch } from 'react-redux';
 import { counterAction } from '../store';
 
 export default function Counter() {
-  const count = useSelector((state) => state.count);
-  const showCounter = useSelector((state) => state.showCounter);
+  const count = useSelector((state) => state.counter.count);
+  const showCounter = useSelector((state) => state.counter.showCounter);
 
   const dispatch = useDispatch();
 
   return (
-    <div
-      style={{
-        width: '20rem',
-        margin: 'auto',
-        padding: '1rem',
-        border: '2px solid',
-        textAlign: 'center',
-      }}
-    >
-      <h2>Counter</h2>
+    <div className="bg-white w-96 m-auto my-10 p-3 border-2 rounded-lg text-center">
+      <h2 className="text-2xl text-slate-600 font-bold ">
+        Counter using Redux
+      </h2>
 
       {showCounter && (
         <>
-          <p style={{ fontSize: '2rem' }}>{count}</p>
+          <p className="font-bold text-3xl text-blue-800 p-3">{count}</p>
           <div>
             <button
-              style={{ fontSize: '1.2rem', margin: '6px' }}
+              className="border rounded bg-blue-600 px-2 py-1 text-semibold m-1 text-white hover:bg-blue-500"
               onClick={() => dispatch(counterAction.increment())}
             >
               IncreaseBy5
             </button>
             <button
-              style={{ fontSize: '1.2rem', margin: '6px' }}
+              className="border rounded bg-blue-600 px-2 py-1 text-semibold m-1 text-white hover:bg-blue-500"
               onClick={() => dispatch(counterAction.decrement())}
             >
               DecreaseBy5
             </button>
             <button
-              style={{ fontSize: '1.2rem', margin: '6px' }}
+              className="border rounded bg-blue-600 px-2 py-1 text-semibold m-1 text-white hover:bg-blue-500"
               onClick={() => dispatch(counterAction.increase(20))}
             >
               IncreaseBy20
@@ -46,7 +40,7 @@ export default function Counter() {
         </>
       )}
       <button
-        style={{ fontSize: '1.2rem' }}
+        className="border rounded bg-blue-600 px-2 py-1 text-semibold m-1 text-white hover:bg-blue-500"
         onClick={() => dispatch(counterAction.toggleCounter())}
       >
         Toggle Counter
