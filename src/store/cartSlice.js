@@ -10,8 +10,8 @@ const cartSlice = createSlice({
       const updatedCartIems = state.cartItems.map((ci) => {
         if (ci.id === action.payload.id) {
           return {
-            ...action.payload,
-            quantity: ci.quantity + action.payload.quantity,
+            ...ci,
+            quantity: ci.quantity + 1,
             total: ci.total + action.payload.price,
           };
         }
@@ -27,18 +27,17 @@ const cartSlice = createSlice({
 
     removeItem(state, action) {
       let updatedCartIems = state.cartItems.map((ci) => {
-        if (ci.id === action.payload.id) {
+        if (ci.id === action.payload) {
           return {
             ...ci,
             quantity: ci.quantity - 1,
-            total: ci.total - action.payload.price,
+            total: ci.total - ci.price,
           };
         }
         return ci;
       });
-      updatedCartIems = updatedCartIems.filter((ci) => ci.quantity !== 0);
 
-      state.cartItems = updatedCartIems;
+      state.cartItems = updatedCartIems.filter((ci) => ci.quantity !== 0);
     },
 
     toggleShowCart(state) {

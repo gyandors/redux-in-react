@@ -6,7 +6,6 @@ import classes from './CartItem.module.css';
 export default function CartItem(props) {
   const dispatch = useDispatch();
 
-  console.log(props);
   return (
     <li className={classes.item}>
       <header>
@@ -25,7 +24,7 @@ export default function CartItem(props) {
         <div className={classes.actions}>
           <button
             onClick={() => {
-              dispatch(removeItem({ id: props.id, price: props.price }));
+              dispatch(removeItem(props.id));
             }}
           >
             -
