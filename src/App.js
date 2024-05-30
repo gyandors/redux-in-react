@@ -6,6 +6,7 @@
 // import Counter from './components/Counter';
 
 import Header from './components/E-Comm/Header';
+import Products from './components/E-Comm/Products';
 
 export default function App() {
   // const selectAuth = useSelector((state) => state.auth.isAuthenticated);
@@ -13,6 +14,7 @@ export default function App() {
   return (
     <>
       <Header />
+      <Products />
     </>
   );
 }
