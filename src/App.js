@@ -1,54 +1,42 @@
-import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
-// import Header from './components/Header';
-// import LoginForm from './components/LoginForm';
-// import Welcome from './components/Welcome';
-// import Counter from './components/Counter';
+import { sendCartData, fetchCartItems } from './store/cartSlice';
 
 import Header from './components/E-Comm/Header';
 import Products from './components/E-Comm/Products';
 import Notify from './components/E-Comm/Notify';
 
-export default function App() {
-  // const selectAuth = useSelector((state) => state.auth.isAuthenticated);
+let isInitial = true;
 
+export default function App() {
   const cart = useSelector((state) => state.cart);
 
-  const [notify, setNotify] = useState(false);
+  const notify = useSelector((state) => state.ui.notify);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    async function fetchData() {
-      setNotify({ title: 'Sending...', message: 'Sending cart data!' });
-      try {
-        const response = await fetch(
-          'https://test-api-cd004-default-rtdb.firebaseio.com/cart.json',
-          {
-            method: 'PUT',
-            body: JSON.stringify(cart),
-          }
-        );
-        if (response.ok) {
-          setNotify({
-            title: 'Success!',
-            message: 'Cart data sent successfully!',
-          });
-        } else {
-          throw new Error('Error!');
-        }
-      } catch (error) {
-        setNotify({
-          title: error.message,
-          message: 'Sending cart data failed!',
-        });
+    async function getCartData() {
+      const response = await fetch(
+        'https://test-api-cd004-default-rtdb.firebaseio.com/cart.json'
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+
+        if (data) dispatch(fetchCartItems(data.cartItems));
+        else dispatch(fetchCartItems([]));
       }
     }
-    fetchData();
 
-    setTimeout(() => {
-      setNotify(false);
-    }, 3000);
-  }, [cart]);
+    if (isInitial) {
+      getCartData();
+      isInitial = false;
+      return;
+    }
+
+    dispatch(sendCartData(cart));
+  }, [cart, dispatch]);
 
   return (
     <>

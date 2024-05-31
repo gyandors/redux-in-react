@@ -1,10 +1,10 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { toggleShowCart } from '../../store/cartSlice';
+import { toggleShowCart } from '../../store/uiSlice';
 
 import Cart from './Cart';
 
 export default function Header() {
-  const showCart = useSelector((state) => state.cart.showCart);
+  const showCart = useSelector((state) => state.ui.showCart);
   const cartItems = useSelector((state) => state.cart.cartItems);
   const dispatch = useDispatch();
 
